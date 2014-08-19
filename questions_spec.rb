@@ -8,49 +8,49 @@ require_relative './questions'
 # end
 
 describe 'the Friday test :)' do
-   # done
+
    specify 'select_elements_starting_with_a' do
       n = select_elements_starting_with_a ['bananas', 'apples', 'pears', 'avocados']
       expect(n).to eq ['apples', 'avocados']
    end
-   # done
+
    specify 'select_elements_starting_with_vowel' do
       n = select_elements_starting_with_vowel ['john', 'david', 'omar', 'fred', 'idris', 'angela']
       expect(n).to eq ['omar', 'idris', 'angela']
    end
-   # done
+
    specify 'remove_nils_from_array' do
       n = remove_nils_from_array ['a', 'b', nil, nil, false, 'c', nil]
       expect(n).to eq ['a', 'b', false, 'c']
    end
-   # done
+
    specify 'remove_nils_and_false_from_array' do
       n = remove_nils_and_false_from_array ['a', 'b', nil, nil, false, 'c', nil]
       expect(n).to eq ['a', 'b', 'c']
    end
-   # done
+
    specify 'reverse_every_element_in_array' do
       n = reverse_every_element_in_array ['dog', 'monkey', 'elephant']
       expect(n).to eq ['god', 'yeknom', 'tnahpele']
    end
-   # done
+
    specify 'every_possible_pairing_of_students' do
       n = every_possible_pairing_of_students(['Bob', 'Dave', 'Clive']) || []
       sorted = n.map {|pair| pair.sort}.sort_by {|pair| [pair.first, pair.last] }
 
       expect(sorted).to eq [['Bob', 'Clive'], ['Bob', 'Dave'], ['Clive', 'Dave']]
    end
-   # done
+
    specify 'all_elements_except_first_3' do
       n = all_elements_except_first_3 [1, 2, 3, 4, 5, 6, 7]
       expect(n).to eq [4, 5, 6, 7]
    end
-   # done
+
    specify 'add_element_to_beginning_of_array' do
       n = add_element_to_beginning_of_array [2, 3, 4, 5], 1
       expect(n).to eq [1, 2, 3, 4, 5]
    end
-   # done
+
    specify 'array_sort_by_last_letter_of_word' do
       n = array_sort_by_last_letter_of_word ['sky', 'puma', 'maker']
       expect(n).to eq ['puma', 'maker', 'sky']
@@ -91,17 +91,17 @@ describe 'the Friday test :)' do
       n = longest_word_in_array %w(here is a bunch of words of different lengths)
       expect(n).to eq 'different'
    end
-   # done
+
    specify 'total_of_array' do
       n = total_of_array [1, 3, 5, 6, 2, 8]
       expect(n).to eq 25
    end
-   # done - but check!!??
+
    specify 'double_array' do
       n = double_array [1, 2, 3]
       expect(n).to eq [1, 2, 3, 1, 2, 3]
    end
-   # done
+
    specify 'turn_symbol_into_string' do
       n = turn_symbol_into_string :foobar
       expect(n).to eq 'foobar'
@@ -116,7 +116,7 @@ describe 'the Friday test :)' do
       n = get_elements_until_greater_than_five [1, 3, 5, 4, 1, 2, 6, 2, 1, 3, 7]
       expect(n).to eq [1, 3, 5, 4, 1, 2]
    end
-   # done
+
    specify 'convert_array_to_a_hash' do
       n = convert_array_to_a_hash ['a', 'b', 'c', 'd']
       expect(n).to eq({'a' => 'b', 'c' => 'd'})
@@ -141,12 +141,12 @@ describe 'the Friday test :)' do
       n = remove_capital_letters_from_string 'Hello JohnDoe'
       expect(n).to eq 'ello ohnoe'
    end
-   # done
+
    specify 'round_up_number' do
       n = round_up_number 3.142
       expect(n).to eq 4
    end
-   # done
+
    specify 'round_down_number' do
       n = round_down_number 4.9
       expect(n).to eq 4
@@ -171,15 +171,15 @@ describe 'the Friday test :)' do
       a = check_a_string_for_special_characters 'ABCdef123'
       b = check_a_string_for_special_characters 'ABC@def123!'
 
-      expect(a).to be_false
-      expect(b).to be_true
+      expect(a).to be false
+      expect(b).to be true
    end
-   # done
+
    specify 'get_upper_limit_of' do
       n = get_upper_limit_of 1..20
       expect(n).to eq 20
    end
-   # done
+
    specify 'is_a_3_dot_range?' do
       a = is_a_3_dot_range? 1..20
       b = is_a_3_dot_range? 1...20
@@ -187,7 +187,7 @@ describe 'the Friday test :)' do
       expect(a).to be false
       expect(b).to be true
    end
-   # done
+
    specify 'square_root_of' do
       a = square_root_of 9
       b = square_root_of 3
@@ -208,8 +208,8 @@ describe 'the Friday test :)' do
       a = is_a_2014_bank_holiday?(Time.new(2014, 8, 25))
       b = is_a_2014_bank_holiday?(Time.new(2014, 8, 26))
 
-      expect(a).to be_true
-      expect(b).to be_false
+      expect(a).to be true
+      expect(b).to be false
    end
 
    specify 'your_birthday_is_on_a_friday_in_the_year' do

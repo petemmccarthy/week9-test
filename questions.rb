@@ -16,6 +16,7 @@ end
 # remove instances of nil AND false from an array
 def remove_nils_and_false_from_array(array)
 	array.select { |element| element != nil && element != false }
+	# array.reject(&:!) this is shorthand for { |x| !x }
 end
 
 # don't reverse the array, but reverse every word inside it. e.g.
@@ -53,14 +54,14 @@ end
 # 'banana' becomes 'ban'. If the string is an odd number of letters
 # round up - so 'apple' becomes 'app'
 def get_first_half_of_string(string)
-	string?
-
-
+	letter_count = (string.length / 2.0 ).ceil
+	string[0, letter_count]
 end
 
 # turn a positive integer into a negative integer. A negative integer
 # stays negative
 def make_numbers_negative(number)
+	(number > 0 ) ? number * -1 : number
 end
 
 # turn an array of numbers into two arrays of numbers, one an array of 
@@ -68,6 +69,7 @@ end
 # even numbers come first
 # so [1, 2, 3, 4, 5, 6] becomes [[2, 4, 6], [1, 3, 5]]
 def separate_array_into_even_and_odd_numbers(array)
+	array.partition(&:even?)
 end
 
 # count the numbers of elements in an element which are palindromes
@@ -75,14 +77,17 @@ end
 # e.g. 'bob'. So in the array ['bob', 'radar', 'eat'], there
 # are 2 palindromes (bob and radar), so the method should return 2
 def number_of_elements_that_are_palindromes(array)
+	array.select { |word| word == word.reverse }.count
 end
 
 # return the shortest word in an array
 def shortest_word_in_array(array)
+	array.min_by(&:length)
 end
 
 # return the longest word in an array
 def longest_word_in_array(array)
+	array.max_by(&:length)
 end
 
 # add up all the numbers in an array, so [1, 3, 5, 6]
@@ -109,7 +114,7 @@ def average_of_array(array)
 	# array.inject(0.0) { |sum, number| sum += number } / array.count
 	
 	# however, the test wants.....
-	array.inject(0.0) { |sum, number| sum += number }
+	(array.inject(:+).to_f / array.size).round
 end
 
 # get all the elements in an array, up until the first element
@@ -117,6 +122,7 @@ end
 # [1, 3, 5, 4, 1, 2, 6, 2, 1, 3, 7]
 # becomes [1, 3, 5, 4, 1, 2]
 def get_elements_until_greater_than_five(array)
+	array.chunk { |number| number > 5}.reject { |elements| elements.first }.first.slice(-1)
 end
 
 # turn an array (with an even number of elements) into a hash, by
@@ -131,6 +137,7 @@ end
 # . e.g. the array ['cat', 'dog', 'fish'] becomes
 # ['a', 'c', 'd', 'f', 'g', 'h', 'i', 'o', 's', 't']
 def get_all_letters_in_array_of_words(array)
+	array.join.split(//).sort
 end
 
 # swap the keys and values in a hash. e.g.
@@ -144,6 +151,7 @@ end
 # add all the keys and all the values together, e.g.
 # {1 => 1, 2 => 2} becomes 6
 def add_together_keys_and_values(hash)
+	hash.flatten.inject(:+)
 end
 
 # take out all the capital letters from a string
@@ -167,12 +175,13 @@ end
 # take a date and format it like dd/mm/yyyy, so Halloween 2013
 # becomes 31/10/2013
 def format_date_nicely(date)
-	# date.strftime("%m/%d/%Y")
+	date.strftime("%d/%m/%Y")
 end
 
 # get the domain name *without* the .com part, from an email address
 # so alex@makersacademy.com becomes makersacademy
 def get_domain_name_from_email_address(email)
+	email[/@(\w+)/, 1]
 end
 
 # capitalize the first letter in each word of a string, 
@@ -181,12 +190,14 @@ end
 # 'the lion the witch and the wardrobe' becomes
 # 'The Lion the Witch and the Wardrobe'
 def titleize_a_string(string)
+	string.capitalize.split(' ').each { |word| word.capitalize! unless ['a', 'and', 'the'].include?(word) }.join(' ')
 end
 
 # return true if a string contains any special characters
 # where 'special character' means anything apart from the letters
 # a-z (uppercase and lower) or numbers
 def check_a_string_for_special_characters(string)
+	/\W/ === string
 end
 
 # get the upper limit of a range. e.g. for the range 1..20, you
@@ -208,6 +219,7 @@ end
 
 # count the number of words in a file
 def word_count_a_file(file_path)
+	IO.read(file_path).split.size
 end
 
 # --- tougher ones ---
@@ -216,18 +228,23 @@ end
 # called call_method_from_string('foobar')
 # the method foobar should be invoked
 def call_method_from_string(str_method)
+	send(str_method)
 end
 
 # return true if the date is a uk bank holiday for 2014
 # the list of bank holidays is here:
 # https://www.gov.uk/bank-holidays
 def is_a_2014_bank_holiday?(date)
+	day = date.strftime '%-d/%-m'
+	%w(1/1 18/4 21/4 5/5 26/5 25/8 25/12 26/12).include? day
 end
 
 # given your birthday this year, this method tells you
 # the next year when your birthday will fall on a friday
 # e.g. january 1st, will next be a friday in 2016
 def your_birthday_is_on_a_friday_in_the_year(birthday)
+	birthday =  Time.new birthday.year + 1, birthday.month, birthday.day until birthday.friday?
+ 	birthday.year
 end
 
 # in a file, total the number of times words of different lengths
@@ -236,6 +253,8 @@ end
 # and 1 that is 4 letters long. Return it as a hash in the format
 # word_length => count, e.g. {2 => 1, 3 => 5, 4 => 1}
 def count_words_of_each_length_in_a_file(file_path)
+	words, count = IO.read(file_path).scan(/\w+/), Hash.new(0)
+	words.each { |w| count[w.size] += 1 } and return count
 end
 
 # implement fizzbuzz without modulo, i.e. the % method
