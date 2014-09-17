@@ -10,6 +10,7 @@ Try and get the RSpec tests to pass (but not by cheating - i.e. hardcoding the e
 You shouldn't need any extra libraries or gems
 The cleaner your code the better!
 Googling is fine as usual
+
 Tips
 
 Use the ruby docs http://www.ruby-doc.org/core-2.0.0/String.html
