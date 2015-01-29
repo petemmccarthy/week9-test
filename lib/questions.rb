@@ -16,13 +16,16 @@ end
 # remove instances of nil AND false from an array
 def remove_nils_and_false_from_array(array)
 	array.select { |element| element != nil && element != false }
+	# array.select { |element| true if element }
 	# array.reject(&:!) this is shorthand for { |x| !x }
 end
 
 # don't reverse the array, but reverse every word inside it. e.g.
 # ['dog', 'monkey'] becomes ['god', 'yeknom']
 def reverse_every_element_in_array(array)
-	array.map { |element| element.reverse }
+	# array.each(&:reverse!)
+	# array.map { |element| element.reverse }
+	array.map(&:reverse)
 end
 
 # given an array of student names, like ['Bob', 'Dave', 'Clive']
@@ -69,6 +72,7 @@ end
 # even numbers come first
 # so [1, 2, 3, 4, 5, 6] becomes [[2, 4, 6], [1, 3, 5]]
 def separate_array_into_even_and_odd_numbers(array)
+	# [array.select(&:even?), array.select(&:odd?)]
 	array.partition(&:even?)
 end
 
@@ -77,7 +81,8 @@ end
 # e.g. 'bob'. So in the array ['bob', 'radar', 'eat'], there
 # are 2 palindromes (bob and radar), so the method should return 2
 def number_of_elements_that_are_palindromes(array)
-	array.select { |word| word == word.reverse }.count
+	# array.select { |word| word == word.reverse }.count
+	array.count { |element| element == element.reverse }
 end
 
 # return the shortest word in an array
@@ -93,7 +98,8 @@ end
 # add up all the numbers in an array, so [1, 3, 5, 6]
 # returns 15
 def total_of_array(array)
-	array.inject(0) { |sum, number| sum += number }
+	# array.inject(0) { |sum, number| sum += number }
+	array.inject(&:+)
 end
 
 # turn an array into itself repeated twice. So [1, 2, 3]
@@ -122,7 +128,9 @@ end
 # [1, 3, 5, 4, 1, 2, 6, 2, 1, 3, 7]
 # becomes [1, 3, 5, 4, 1, 2]
 def get_elements_until_greater_than_five(array)
-	array.chunk { |number| number > 5}.reject { |elements| elements.first }.first.slice(-1)
+	# array.chunk { |number| number > 5}.reject { |elements| elements.first }.first.slice(-1)
+	# array.chunk { |number| number > 5}.reject(&:first).first.slice(-1)
+	array.take_while { |element| element <= 5 }
 end
 
 # turn an array (with an even number of elements) into a hash, by
@@ -137,6 +145,7 @@ end
 # . e.g. the array ['cat', 'dog', 'fish'] becomes
 # ['a', 'c', 'd', 'f', 'g', 'h', 'i', 'o', 's', 't']
 def get_all_letters_in_array_of_words(array)
+	# array.join.chars.sort.uniq
 	array.join.split(//).sort
 end
 
@@ -157,6 +166,7 @@ end
 # take out all the capital letters from a string
 # so 'Hello JohnDoe' becomes 'ello ohnoe'
 def remove_capital_letters_from_string(string)
+	# string.gsub(/[A-Z]/, '')
 	string.delete('/[A-Z]/')
 end
 
@@ -219,6 +229,7 @@ end
 
 # count the number of words in a file
 def word_count_a_file(file_path)
+	# File.open(file_path, 'r') { |file| file.read.scan(/[\w']+/).count }
 	IO.read(file_path).split.size
 end
 
@@ -235,6 +246,24 @@ end
 # the list of bank holidays is here:
 # https://www.gov.uk/bank-holidays
 def is_a_2014_bank_holiday?(date)
+# def is_a_2014_bank_holiday?(date)
+# 	holidays_2014 = []
+# 	open("https://www.gov.uk/bank-holidays") do |file|
+# 		prev_month = 0
+#   file.read.scan(/^<td class=\"calendar_date\">(.*)<\/td>$/).each do |date|
+#   		month = _format(date).month
+#   		break if month < prev_month
+#   		holidays_2014 << _format(date)
+#   		prev_month = month
+#   	end
+#   end
+#   holidays_2014.include?(date)
+# end
+
+# def _format(date)
+# 	Time.parse(date.first)
+# end
+  		
 	day = date.strftime '%-d/%-m'
 	%w(1/1 18/4 21/4 5/5 26/5 25/8 25/12 26/12).include? day
 end
@@ -261,6 +290,12 @@ end
 # go from 1 to 100
 # (there's no RSpec test for this one)
 def fizzbuzz_without_modulo
+
+	# return 'fizzbuzz' if is_divisible_by(15, number)
+	# return 'fizz' if is_divisible_by(3, number)
+	# return 'buzz' if is_divisible_by(5, number)
+	# number
+	
 	(1..100).each do |number|
 		puts "FizzBuzz" if (number/15.to_f) == (number/15) 
 		puts "Buzz" if (number/5.to_f) == (number/5)  
