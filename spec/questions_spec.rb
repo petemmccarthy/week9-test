@@ -1,12 +1,4 @@
 require 'questions'
-# require 'rspec'
-# require_relative './questions'
-
-# NOTE: BELOW COMMENTED OUT AS MADE TESTS RUN TWICE!!!
-# RSpec.configure do |config|
-#    config.color = true
-#    config.formatter = :documentation
-# end
 
 describe 'the Friday test :)' do
 
